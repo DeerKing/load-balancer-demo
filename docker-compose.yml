@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  loadbalancing_nginx:
+    image: nginx:alpine
+    ports:
+      - "8081:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - web1
+      - web2
+
+  web1:
+    build: ./web/server1
+    container_name: web1
+
+  web2:
+    build: ./web/server2
+    container_name: web2
